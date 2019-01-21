@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.avaya.ept.bloom",
+      "nativeLanguage": "zh-cn"
+    },
+    "jhipsterVersion": "5.7.2",
+    "applicationType": "monolith",
+    "baseName": "AvayaBloomAdmin",
+    "packageName": "com.avaya.ept.bloom",
+    "packageFolder": "com/avaya/ept/bloom",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTFkYTVmNjY5MzI1ZjMwZjAwNTA2NTVkMzIzN2RmNTdhZjBlN2U2Zjc3YzRmN2ExZTljZjFlMDZlMDA5MDgwMGM1N2I4MDBlYjM3ZjhiMTE1OTdkODExYmQ5NWU3N2NlYWE5YTE2NWYzODY0ZTE5ZTNmNjU1YTFmZmY4YjllNDk=",
+    "clientFramework": "angularX",
+    "useSass": false,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "protractor"
+    ],
+    "jhiPrefix": "bloom",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "zh-cn",
+    "languages": [
+      "zh-cn",
+      "zh-tw",
+      "en"
+    ]
+  }
+}
