@@ -56,7 +56,7 @@
     "changelogDate": "20190123033458",
     "entityTableName": "black_list",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

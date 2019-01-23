@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -11,6 +12,7 @@ import { BlackListDetailComponent } from './black-list-detail.component';
 import { BlackListUpdateComponent } from './black-list-update.component';
 import { BlackListDeletePopupComponent } from './black-list-delete-dialog.component';
 import { IBlackList } from 'app/shared/model/black-list.model';
+import { BlackListImportComponent } from './black-list-import.component';
 
 @Injectable({ providedIn: 'root' })
 export class BlackListResolve implements Resolve<IBlackList> {
@@ -32,8 +34,12 @@ export const blackListRoute: Routes = [
     {
         path: 'black-list',
         component: BlackListComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
         data: {
             authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
             pageTitle: 'avayaBloomAdminApp.blackList.home.title'
         },
         canActivate: [UserRouteAccessService]
@@ -53,6 +59,18 @@ export const blackListRoute: Routes = [
     {
         path: 'black-list/new',
         component: BlackListUpdateComponent,
+        resolve: {
+            blackList: BlackListResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'avayaBloomAdminApp.blackList.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'black-list/import',
+        component: BlackListImportComponent,
         resolve: {
             blackList: BlackListResolve
         },

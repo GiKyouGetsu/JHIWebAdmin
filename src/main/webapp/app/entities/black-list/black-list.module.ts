@@ -11,6 +11,8 @@ import {
     blackListRoute,
     blackListPopupRoute
 } from './';
+import { BlackListImportComponent } from './black-list-import.component';
+
 
 const ENTITY_STATES = [...blackListRoute, ...blackListPopupRoute];
 
@@ -21,7 +23,8 @@ const ENTITY_STATES = [...blackListRoute, ...blackListPopupRoute];
         BlackListDetailComponent,
         BlackListUpdateComponent,
         BlackListDeleteDialogComponent,
-        BlackListDeletePopupComponent
+        BlackListDeletePopupComponent,
+        BlackListImportComponent
     ],
     entryComponents: [BlackListComponent, BlackListUpdateComponent, BlackListDeleteDialogComponent, BlackListDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

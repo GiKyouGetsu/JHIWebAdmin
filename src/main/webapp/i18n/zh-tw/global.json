@@ -5,11 +5,13 @@
             "您的瀏覽器已經<strong>過時</strong>，建議您<a href=\"http://browsehappy.com/?locale=en\">升級瀏覽器</a>，以便有更好的體驗。",
         "menu": {
             "home": "首頁",
+            "sidebar": {
+                "numbermanagement": "號碼管理"
+            },
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "實體",
-                "addReason": "Add Reason",
-                "blackList": "Black List",
+                "blackList": "黑名單管理",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

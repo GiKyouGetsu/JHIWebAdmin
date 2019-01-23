@@ -3,7 +3,12 @@
         "blackList": {
             "home": {
                 "title": "Black Lists",
-                "createLabel": "Create a new Black List",
+                "createLabel": "Create",
+                "searchnumber": "Number",
+                "applicant": "Applicant",
+                "searchLabel":"Search",
+                "export": "export",
+                
                 "createOrEditLabel": "Create or edit a Black List"
             },
             "created": "A new Black List is created with identifier {{ param }}",
@@ -21,7 +26,8 @@
             "addReason": "Add Reason",
             "applicant": "Applicant",
             "createtime": "Createtime",
-            "changetime": "Changetime"
+            "changetime": "Changetime",
+            "addmode": "Add mode"
         }
     }
 }

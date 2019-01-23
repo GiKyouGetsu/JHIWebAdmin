@@ -54,7 +54,9 @@ import {
     faUserCog,
     faChartLine,
     faArrowCircleUp,
-    faHandPointUp
+    faHandPointUp, 
+    faPhone,
+    faFileExport
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -107,5 +109,7 @@ library.add(faUserCog);
 library.add(faChartLine);
 library.add(faArrowCircleUp);
 library.add(faHandPointUp);
+library.add(faPhone);
+library.add(faFileExport)
 
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

@@ -116,6 +116,12 @@
                 </ul>
             </li> -->
             
+            <!-- <li>
+                        <a class="dropdown-item" routerLink="black-list" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.blackList">Black List</span>
+                        </a>
+                    </li> -->
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             <!-- <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
@@ -186,12 +192,6 @@
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
                     <li *ngFor="let language of languages">
                         <a class="dropdown-item" [bloomActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="black-list" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.blackList">Black List</span>
-                        </a>
                     </li>
                 </ul>
             </li>

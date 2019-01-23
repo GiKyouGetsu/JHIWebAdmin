@@ -2,26 +2,31 @@
     "avayaBloomAdminApp": {
         "blackList": {
             "home": {
-                "title": "Black Lists",
-                "createLabel": "创建新 Black List",
-                "createOrEditLabel": "创建或编辑 Black List"
+                "title": "黑名单",
+                "searchnumber": "号码",
+                "applicant": "申请人",
+                "searchLabel":"检索",
+                "createLabel": "新建",
+                "export": "导出",
+                "createOrEditLabel": "创建或编辑"
             },
-            "created": "Black List {{ param }} 创建成功",
-            "updated": "Black List {{ param }} 更新成功",
-            "deleted": "Black List {{ param }} 删除成功",
+            "created": "黑名单 {{ param }} 创建成功",
+            "updated": "黑名单 {{ param }} 更新成功",
+            "deleted": "黑名单 {{ param }} 删除成功",
             "delete": {
-                "question": "你确定要删除 Black List {{ id }} 吗？"
+                "question": "你确定要删除 黑名单 {{ id }} 吗？"
             },
             "detail": {
-                "title": "Black List"
+                "title": "黑名单"
             },
-            "blacknumber": "Blacknumber",
-            "numberSource": "Number Source",
-            "validityPeriod": "Validity Period",
-            "addReason": "Add Reason",
-            "applicant": "Applicant",
-            "createtime": "Createtime",
-            "changetime": "Changetime"
+            "blacknumber": "号码",
+            "numberSource": "号码来源",
+            "validityPeriod": "过期时间",
+            "addReason": "添加原因",
+            "applicant": "申请人",
+            "createtime": "创建时间",
+            "changetime": "修改时间",
+            "addmode": "添加模式"
         }
     }
 }
