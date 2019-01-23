@@ -1,0 +1,242 @@
+.side-menu.sidebar-inverse {
+    background-color: #353d47;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.side-menu {
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 100;
+    position: fixed;
+    width: 60px;
+    height: 100%;
+    -webkit-transition: all 0.25s linear;
+    transition: all 0.25s linear;
+    top: 0px;
+}
+
+.side-menu {
+    background-color: #fff;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.side-menu:hover {
+    width: 300px;
+}
+
+.side-menu.expand {
+    width: 300px;
+}
+
+.side-menu.sidebar-inverse .navbar {
+    background-color: #353d47;
+    border-bottom: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.side-menu .navbar {
+    border: none;
+    padding-left: 0px;
+}
+
+.side-menu .navbar {
+    background-color: #fff;
+    border-bottom: 0px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar.navbar-default {
+    border-bottom: 0px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+    z-index: 10001;
+    padding: 0px;
+}
+
+.side-menu .navbar-header {
+    width: 100%;
+    border-bottom: 0px solid #e7e7e7;
+}
+
+.side-menu .navbar-header {
+    background-color: #fff;
+    margin-bottom: 4px;
+}
+
+.side-menu .navbar-nav {
+    width: 100%;
+}
+
+.side-menu .navbar-header .navbar-brand {
+    line-height: 64px;
+    height: 64px;
+    padding: 0;
+    /* width: 100%; */
+    overflow: hidden;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.side-menu .navbar-header .navbar-brand {
+    color: #2f2f30 !important;
+}
+
+.side-menu .navbar-header .navbar-expand-toggle {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 0px;
+    -moz-transition: all 0.25s linear;
+    -webkit-transition: all 0.25s linear;
+    transition: all 0.25s linear;
+    opacity: 0.75;
+}
+
+.fa-rotate-90 {
+    -ms-filter: 'progid:DXImageTransform.Microsoft.BasicImage(rotation=1)';
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.side-menu .navbar-header .navbar-brand .icon {
+    width: 60px;
+    text-align: center;
+    display: inline-block;
+}
+
+.side-menu .navbar-header .navbar-brand .title {
+    display: inline-block;
+}
+
+.side-menu .navbar-header .navbar-brand .title {
+    margin-left: -10px;
+    /* display: none; */
+}
+
+.brand {
+    /* font-family: 'Pacifico', cursive; */
+    font-family: 'SimHei', cursive;
+}
+
+.side-menu-container {
+    width: 100%;
+}
+
+* {
+    outline: none;
+}
+
+.side-menu .navbar-nav {
+    width: 100%;
+}
+
+.side-menu.sidebar-inverse .navbar li {
+    border-left: 0;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.side-menu.sidebar-inverse .navbar li > a {
+    color: #fff;
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0 10px 0 10px;
+    height: 46px;
+    line-height: 46px;
+    display: block;
+    white-space: nowrap;
+}
+
+.side-menu .navbar li.dropdown {
+    background-color: transparent;
+}
+
+.side-menu.sidebar-inverse .navbar li.dropdown .panel-body {
+    padding: 0 7px;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+}
+.collapse {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0;
+    border: none;
+}
+
+.side-menu.sidebar-inverse .navbar li {
+    border-left: 0;
+}
+
+.side-menu .navbar-nav li {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.side-menu .navbar-nav li.dropdown ul li a {
+    height: 44px;
+    line-height: 44px;
+    vertical-align: middle;
+    padding: 0em 1.2em;
+    font-size: 15px;
+}
+
+.side-menu.sidebar-inverse .navbar li > a {
+    color: #fff;
+}
+
+.side-menu .navbar-nav li a {
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0 10px 0 10px;
+    height: 46px;
+    line-height: 46px;
+    display: block;
+    white-space: nowrap;
+}
+
+/* @keyframes fade-in {  
+    0% {height: 100%;}
+    40% {height: 60%;}
+    100% {height: 0%;}
+}  
+
+@keyframes fade-out {  
+    0% {height: 0%;}
+    40% {height: 60%;}
+    100% {height: 100%;}
+}   */
+
+.collapse {
+    transition: all 0.25s;
+    height: 0px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    /* color: #333; */
+    text-decoration: none;
+    /* background-color: transparent; */
+    color: #3e8acc;
+    outline: 0;
+}
+
+fa-icon {
+    margin: 0px 10px;
+}
+
+.dropdown-toggle::after {
+    position: relative;
+    right: 0em;
+}
+
+.side-menu.sidebar-inverse .navbar li a.active {
+    color: #353d47;
+    border-left: 3px solid #3e8acc;
+    border-right: 0px solid #3e8acc;
+    background-color: #fff;
+}

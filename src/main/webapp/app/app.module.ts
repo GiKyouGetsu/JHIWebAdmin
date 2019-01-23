@@ -19,7 +19,9 @@ import { AvayaBloomAdminAccountModule } from './account/account.module';
 import { AvayaBloomAdminEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { BloomMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { BloomMainComponent, NavbarComponent, SidebarComponent,FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { StoreModule } from '@ngrx/store';
+import { sidebarReducer } from './shared/redux/reducers/sidebar.reducer';
 
 @NgModule({
     imports: [
@@ -38,9 +40,10 @@ import { BloomMainComponent, NavbarComponent, FooterComponent, PageRibbonCompone
         AvayaBloomAdminHomeModule,
         AvayaBloomAdminAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
-        AvayaBloomAdminEntityModule
+        AvayaBloomAdminEntityModule,
+        StoreModule.forRoot({ sidebar: sidebarReducer })
     ],
-    declarations: [BloomMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [BloomMainComponent, SidebarComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,9 @@
+{
+    "avayaBloomAdminApp": {
+        "NumberSource": {
+            "null": "",
+            "MANUAL": "MANUAL",
+            "BATCH": "BATCH"
+        }
+    }
+}

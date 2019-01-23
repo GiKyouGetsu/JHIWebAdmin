@@ -1,0 +1,27 @@
+{
+    "avayaBloomAdminApp": {
+        "blackList": {
+            "home": {
+                "title": "Black Lists",
+                "createLabel": "Create a new Black List",
+                "createOrEditLabel": "Create or edit a Black List"
+            },
+            "created": "A new Black List is created with identifier {{ param }}",
+            "updated": "A Black List is updated with identifier {{ param }}",
+            "deleted": "A Black List is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Black List {{ id }}?"
+            },
+            "detail": {
+                "title": "Black List"
+            },
+            "blacknumber": "Blacknumber",
+            "numberSource": "Number Source",
+            "validityPeriod": "Validity Period",
+            "addReason": "Add Reason",
+            "applicant": "Applicant",
+            "createtime": "Createtime",
+            "changetime": "Changetime"
+        }
+    }
+}

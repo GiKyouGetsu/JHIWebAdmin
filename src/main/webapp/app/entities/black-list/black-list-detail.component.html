@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="blackList">
+            <h2><span jhiTranslate="avayaBloomAdminApp.blackList.detail.title">Black List</span> {{blackList.id}}</h2>
+            <hr>
+            <bloom-alert-error></bloom-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.blacknumber">Blacknumber</span></dt>
+                <dd>
+                    <span>{{blackList.blacknumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.numberSource">Number Source</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'avayaBloomAdminApp.NumberSource.' + blackList.numberSource}}">{{blackList.numberSource}}</span>
+                </dd>
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.validityPeriod">Validity Period</span></dt>
+                <dd>
+                    <span>{{blackList.validityPeriod}}</span>
+                </dd>
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.addReason">Add Reason</span></dt>
+                <dd>
+                    <span>{{blackList.addReason}}</span>
+                </dd>
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.applicant">Applicant</span></dt>
+                <dd>
+                    <span>{{blackList.applicant}}</span>
+                </dd>
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.createtime">Createtime</span></dt>
+                <dd>
+                    <span>{{blackList.createtime}}</span>
+                </dd>
+                <dt><span jhiTranslate="avayaBloomAdminApp.blackList.changetime">Changetime</span></dt>
+                <dd>
+                    <span>{{blackList.changetime}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/black-list', blackList.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

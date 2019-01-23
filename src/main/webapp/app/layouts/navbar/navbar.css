@@ -87,3 +87,39 @@ Logo styles
     vertical-align: middle;
     width: 70px;
 }
+
+.navbar-expand-toggle {
+    width: 60px;
+    height: 40px;
+    background-color: transparent;
+    border: 0px;
+    float: left;
+    -moz-transition: all 0.25s linear;
+    -webkit-transition: all 0.25s linear;
+    transition: all 0.25s linear;
+    opacity: 0.75;
+}
+
+.navbar-expand-toggle {
+    color: #fff;
+    cursor: pointer;
+}
+
+.navbar-expand-toggle .icon {
+    font-size: 1.4em;
+}
+
+.navbar-expand-toggle:focus {
+    outline: none;
+}
+.navbar {
+    padding-left: 60px;
+    transition: all 0.25s;
+}
+.navbar.expand {
+    padding-left: 300px;
+}
+
+.navbar.un-auth {
+    padding-left: 0px;
+}

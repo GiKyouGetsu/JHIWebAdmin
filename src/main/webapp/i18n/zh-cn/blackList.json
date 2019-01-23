@@ -1,0 +1,27 @@
+{
+    "avayaBloomAdminApp": {
+        "blackList": {
+            "home": {
+                "title": "Black Lists",
+                "createLabel": "创建新 Black List",
+                "createOrEditLabel": "创建或编辑 Black List"
+            },
+            "created": "Black List {{ param }} 创建成功",
+            "updated": "Black List {{ param }} 更新成功",
+            "deleted": "Black List {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Black List {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Black List"
+            },
+            "blacknumber": "Blacknumber",
+            "numberSource": "Number Source",
+            "validityPeriod": "Validity Period",
+            "addReason": "Add Reason",
+            "applicant": "Applicant",
+            "createtime": "Createtime",
+            "changetime": "Changetime"
+        }
+    }
+}
