@@ -1,7 +1,6 @@
 /* after changing this file run 'npm run webpack:build' */
 /* tslint:disable */
 import '../content/css/vendor.css';
-
 // Imports all fontawesome core and solid icons
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -56,7 +55,9 @@ import {
     faArrowCircleUp,
     faHandPointUp, 
     faPhone,
-    faFileExport
+    faFileExport,
+    faFileImport,
+    faUserAltSlash
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -110,6 +111,7 @@ library.add(faChartLine);
 library.add(faArrowCircleUp);
 library.add(faHandPointUp);
 library.add(faPhone);
-library.add(faFileExport)
+library.add(faFileExport);
+library.add(faFileImport);
 
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

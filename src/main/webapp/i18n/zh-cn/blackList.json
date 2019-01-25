@@ -8,13 +8,19 @@
                 "searchLabel":"检索",
                 "createLabel": "新建",
                 "export": "导出",
+                "import": "导入",
+                "browser": "浏览",
+                "chosefile": "选择文件",
+                "delselect": "删除选中",
                 "createOrEditLabel": "创建或编辑"
             },
             "created": "黑名单 {{ param }} 创建成功",
             "updated": "黑名单 {{ param }} 更新成功",
             "deleted": "黑名单 {{ param }} 删除成功",
+            "noselected": "没有选中的黑名单号码！",
             "delete": {
-                "question": "你确定要删除 黑名单 {{ id }} 吗？"
+                "question": "你确定要删除 黑名单 {{ id }} 吗？",
+                "questions": "你确定要删除 这些黑名单 {{ ids }} 吗？"
             },
             "detail": {
                 "title": "黑名单"

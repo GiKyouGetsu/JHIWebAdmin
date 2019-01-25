@@ -8,14 +8,19 @@
                 "applicant": "Applicant",
                 "searchLabel":"Search",
                 "export": "export",
-                
+                "import": "Import",
+                "chosefile": "Choose file",
+                "browser": "Browser",
+                "delselect": "Delete Selected",
                 "createOrEditLabel": "Create or edit a Black List"
             },
             "created": "A new Black List is created with identifier {{ param }}",
             "updated": "A Black List is updated with identifier {{ param }}",
             "deleted": "A Black List is deleted with identifier {{ param }}",
+            "noselected": "No Black List is selected Number!",
             "delete": {
-                "question": "Are you sure you want to delete Black List {{ id }}?"
+                "question": "Are you sure you want to delete Black List {{ id }}?",
+                "questions": "Are you sure you want to delete those Black List [ {{ ids }} ]?"
             },
             "detail": {
                 "title": "Black List"

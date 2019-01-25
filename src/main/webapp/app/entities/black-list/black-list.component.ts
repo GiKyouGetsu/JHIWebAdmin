@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IBlackList } from 'app/shared/model/black-list.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { BlackListService } from './black-list.service';
+import { BlackListDeleteSelectedComponent } from './black-list-delete-selected.component';
 
 @Component({
     selector: 'bloom-black-list',
@@ -31,6 +33,17 @@ export class BlackListComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
+    // public selectedBlackLists: IBlackList[]
+
+    // new added
+    // options: ISelectBlackList[] ;
+    selectedAll: any;
+    // get selectedOptions() {
+    //     return this.options.filter(opt => opt.checked).map(
+    //         opt => opt.id
+    //     )
+    // }
+
     constructor(
         protected blackListService: BlackListService,
         protected parseLinks: JhiParseLinks,
@@ -38,7 +51,8 @@ export class BlackListComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected modalService: NgbModal
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -109,8 +123,15 @@ export class BlackListComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInBlackLists() {
-        this.eventSubscriber = this.eventManager.subscribe('blackListListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('blackListListModification', response => {
+            console.log(response);
+            this.loadAll();
+        });
     }
+
+    // registerChangeInBlackListsDELMany() {
+    //     this.eventSubscriber = this.eventManager.subscribe('blackListListModification', response => this.loadAll());
+    // }
 
     sort() {
         const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
@@ -129,5 +150,51 @@ export class BlackListComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    protected ids(list: IBlackList[]) {
+        let ids = '';
+        list.forEach(el => {
+            ids = ids ?  (ids + ';' + el.id) : (ids + el.id);
+        });
+        return ids;
+    }
+
+    selectAll() {
+        this.selectedAll = !this.selectedAll;
+        console.log('selectAll()');
+        for (let i = 0; i < this.blackLists.length; i++) {
+            this.blackLists[i].checked = this.selectedAll;
+        }
+    }
+
+    checkIfAllSelected() {
+        let totalSelected =  0;
+        for (let i = 0; i < this.blackLists.length; i++) {
+            if (this.blackLists[i].checked) {
+                totalSelected ++;
+            }
+        }
+        this.selectedAll = totalSelected === this.blackLists.length;
+        return true;
+    }
+
+    delSelect() {
+        const selList = this.blackLists.filter(opt => opt.checked);
+        if (selList.length < 1) {
+            this.onError('avayaBloomAdminApp.blackList.noselected');
+            return;
+        }
+        console.log(selList);
+        const modalRef = this.modalService.open(BlackListDeleteSelectedComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.ids = this.ids(selList);
+        modalRef.result.then(
+            result => {
+                // Left blank intentionally, nothing to do here
+            },
+            reason => {
+                // Left blank intentionally, nothing to do here
+            }
+        );
     }
 }

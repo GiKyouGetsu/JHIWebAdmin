@@ -8,13 +8,19 @@
                 "searchLabel":"檢索",
                 "createLabel": "新建",
                 "export": "導出",
+                "import": "導入",
+                "browser": "瀏覽",
+                "delselect": "刪除選中",
+                "chosefile": "選擇文件",
                 "createOrEditLabel": "建立或編輯 黑名單"
             },
             "created": "新的 黑名單 建立成功，識別碼為 {{ param }}",
             "updated": "識別碼為 {{ param }} 的 黑名單 更新成功",
             "deleted": "識別碼為 {{ param }} 的 黑名單 刪除成功",
+            "noselected": "沒有選中的黑名單號碼",
             "delete": {
-                "question": "您確定要刪除 黑名單 {{ id }} 嗎?"
+                "question": "您確定要刪除 黑名單 {{ id }} 嗎?",
+                "questions": "您確定要刪除 這些黑名單 {{ ids }} 嗎?"
             },
             "detail": {
                 "title": "黑名單"

@@ -24,19 +24,25 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list" (click)="delSelect()">
+                    <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    <span jhiTranslate="avayaBloomAdminApp.blackList.home.delselect">
+                        deleteSelected
+                    </span>
+                </button>
                 <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list"
                 [routerLink]="['/black-list/import']">
-                    <fa-icon [icon]="'file-export'"></fa-icon>
-                    <span jhiTranslate="avayaBloomAdminApp.blackList.home.export">
-                        export
+                    <fa-icon [icon]="'file-import'"></fa-icon>
+                    <span jhiTranslate="avayaBloomAdminApp.blackList.home.import">
+                        import
                     </span>
                 </button>
                 <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list">
-                        <fa-icon [icon]="'file-export'"></fa-icon>
-                        <span jhiTranslate="avayaBloomAdminApp.blackList.home.export">
-                            import
-                        </span>
-                    </button>
+                    <fa-icon [icon]="'file-export'"></fa-icon>
+                    <span jhiTranslate="avayaBloomAdminApp.blackList.home.export">
+                    export
+                    </span>
+                </button>
                 <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list"
                     [routerLink]="['/black-list/new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
@@ -53,6 +59,13 @@
         <table class="table table-striped">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <!-- Default unchecked -->
+                    <th>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck" name="all" (change)="selectAll()" [checked]="selectedAll">
+                            <label class="custom-control-label" for="customCheck">&nbsp;</label>
+                        </div>
+                    </th>
                     <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
@@ -83,7 +96,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let blackList of blackLists ;trackBy: trackId">
+                <tr *ngFor="let blackList of blackLists ;trackBy: trackId; let i = index;">
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" [id]="'customCheck' + blackList.id" 
+                                [(ngModel)]="blackList.checked" (change)="checkIfAllSelected()">
+                            <label class="custom-control-label" [for]="'customCheck' + blackList.id">&nbsp;</label>
+                        </div>
+                    </td>
                     <td><a [routerLink]="['/black-list', blackList.id, 'view' ]">{{blackList.id}}</a></td>
                     <td>{{blackList.blacknumber}}</td>
                     <td jhiTranslate="{{'avayaBloomAdminApp.NumberSource.' + blackList.numberSource}}">{{blackList.numberSource}}</td>

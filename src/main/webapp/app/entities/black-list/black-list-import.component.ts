@@ -1,36 +1,69 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { JhiEventManager, JhiTranslateComponent, JhiLanguageService } from 'ng-jhipster';
 
 import { IBlackList } from 'app/shared/model/black-list.model';
 import { BlackListService } from './black-list.service';
+import { LanguageService } from 'typescript';
 
 @Component({
     selector: 'bloom-black-list-import',
-    templateUrl: './black-list-import.component.html'
+    templateUrl: './black-list-import.component.html',
+    styleUrls: ['./black-list.component.css']
 })
-export class BlackListImportComponent {
+export class BlackListImportComponent implements OnInit {
+
     blackList: IBlackList;
+    // formInput: FormGroup;
+    fileToUpload: File = null;
+    @ViewChild('labelImport')
+    labelImport: ElementRef;
 
     constructor(
+        protected jhilanService: JhiLanguageService,
         protected blackListService: BlackListService,
-        public activeModal: NgbActiveModal,
         protected eventManager: JhiEventManager
     ) {}
 
+    onFileChange(files: FileList) {
+        const language = this.jhilanService.currentLang;
+        console.log(language);
+
+        if (files.length > 0) {
+           this.labelImport.nativeElement.innerText = Array.from(files)
+          .map(f => f.name)
+          .join(', ');
+        } else {
+            if (language === 'zh-cn') {
+                this.labelImport.nativeElement.innerText = '选择文件';
+            } else if (language === 'zh-tw') {
+                this.labelImport.nativeElement.innerText = '選擇文件';
+            } else if (language === 'en') {
+                this.labelImport.nativeElement.innerText = 'choose file';
+            }
+        }
+
+        this.fileToUpload = files.item(0);
+        console.log(this.fileToUpload);
+    }
+    isSelected() {
+        return !!this.fileToUpload;
+    }
+    ngOnInit() {}
     clear() {
-        this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(id: number) {
-        this.blackListService.delete(id).subscribe(response => {
-            this.eventManager.broadcast({
-                name: 'blackListListModification',
-                content: 'Deleted an blackList'
-            });
-            this.activeModal.dismiss(true);
-        });
+    confirmImport() {
+        // this.blackListService.delete(id).subscribe(response => {
+        //     this.eventManager.broadcast({
+        //         name: 'blackListListModification',
+        //         content: 'Deleted an blackList'
+        //     });
+        // });
+        alert('Import');
+        console.log(this.fileToUpload);
+    }
+
+    previousState() {
+        window.history.back();
     }
 }
