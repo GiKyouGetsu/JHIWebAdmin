@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { JhiEventManager, JhiTranslateComponent, JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { IBlackList } from 'app/shared/model/black-list.model';
 import { BlackListService } from './black-list.service';
-import { LanguageService } from 'typescript';
 
 @Component({
     selector: 'bloom-black-list-import',
@@ -19,20 +18,17 @@ export class BlackListImportComponent implements OnInit {
     labelImport: ElementRef;
 
     constructor(
-        protected jhilanService: JhiLanguageService,
         protected blackListService: BlackListService,
         protected eventManager: JhiEventManager
     ) {}
 
     onFileChange(files: FileList) {
-        const language = this.jhilanService.currentLang;
-        console.log(language);
 
         if (files.length > 0) {
            this.labelImport.nativeElement.innerText = Array.from(files)
           .map(f => f.name)
           .join(', ');
-        } else {
+        }/*  else {
             if (language === 'zh-cn') {
                 this.labelImport.nativeElement.innerText = '选择文件';
             } else if (language === 'zh-tw') {
@@ -40,7 +36,7 @@ export class BlackListImportComponent implements OnInit {
             } else if (language === 'en') {
                 this.labelImport.nativeElement.innerText = 'choose file';
             }
-        }
+        } */
 
         this.fileToUpload = files.item(0);
         console.log(this.fileToUpload);

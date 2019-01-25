@@ -71,7 +71,10 @@ export class BlackListComponent implements OnInit, OnDestroy {
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<IBlackList[]>) => this.paginateBlackLists(res.body, res.headers),
+                (res: HttpResponse<IBlackList[]>) => {
+                    this.paginateBlackLists(res.body, res.headers);
+                    this.selectedAll = null;
+                },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }

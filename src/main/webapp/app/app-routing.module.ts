@@ -13,6 +13,10 @@ const LAYOUT_ROUTES = [navbarRoute, sidebarRoute, ...errorRoute];
                 {
                     path: 'admin',
                     loadChildren: './admin/admin.module#AvayaBloomAdminAdminModule'
+                },
+                {
+                    path: 'phone',
+                    loadChildren: './entities/entity.module#AvayaBloomAdminEntityModule'
                 }
             ],
             { useHash: true, enableTracing: DEBUG_INFO_ENABLED }

@@ -13,6 +13,8 @@ import {
     blackListRoute,
     blackListPopupRoute
 } from './';
+import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageHelper } from 'app/core';
 
 const ENTITY_STATES = [...blackListRoute, ...blackListPopupRoute];
 
@@ -27,7 +29,16 @@ const ENTITY_STATES = [...blackListRoute, ...blackListPopupRoute];
         BlackListImportComponent,
         BlackListDeleteSelectedComponent
     ],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     entryComponents: [BlackListComponent, BlackListUpdateComponent, BlackListDeleteDialogComponent, BlackListDeletePopupComponent, BlackListDeleteSelectedComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AvayaBloomAdminBlackListModule {}
+export class AvayaBloomAdminBlackListModule {
+    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+        this.languageHelper.language.subscribe((languageKey: string) => {
+            if (languageKey !== undefined) {
+                this.languageService.changeLanguage(languageKey);
+            }
+        });
+    }
+}
