@@ -41,7 +41,6 @@ import { sidebarReducer } from './shared/redux/reducers/sidebar.reducer';
         AvayaBloomAdminAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         AvayaBloomAdminEntityModule,
-        
         StoreModule.forRoot({ sidebar: sidebarReducer })
     ],
     declarations: [BloomMainComponent, SidebarComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

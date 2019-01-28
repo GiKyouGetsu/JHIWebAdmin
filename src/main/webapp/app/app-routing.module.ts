@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, PreloadingStrategy } from '@angular/router';
 import { errorRoute, navbarRoute, sidebarRoute} from './layouts';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
+import { JHIPreloadingStrategy } from './shared/preload/preload-strategy';
 
 const LAYOUT_ROUTES = [navbarRoute, sidebarRoute, ...errorRoute];
 
@@ -12,16 +13,20 @@ const LAYOUT_ROUTES = [navbarRoute, sidebarRoute, ...errorRoute];
                 ...LAYOUT_ROUTES,
                 {
                     path: 'admin',
-                    loadChildren: './admin/admin.module#AvayaBloomAdminAdminModule'
-                },
-                {
-                    path: 'phone',
-                    loadChildren: './entities/entity.module#AvayaBloomAdminEntityModule'
+                    loadChildren: './admin/admin.module#AvayaBloomAdminAdminModule',
+                    data: {preload: true}
                 }
+                // ,
+                // {
+                //     path: 'phone',
+                //     loadChildren: './entities/entity.module#AvayaBloomAdminEntityModule',
+                //     data: {preload: true}
+                // }
             ],
-            { useHash: true, enableTracing: DEBUG_INFO_ENABLED }
+            { useHash: true, enableTracing: DEBUG_INFO_ENABLED, preloadingStrategy: JHIPreloadingStrategy }
         )
     ],
+    providers: [JHIPreloadingStrategy],
     exports: [RouterModule]
 })
 export class AvayaBloomAdminAppRoutingModule {}

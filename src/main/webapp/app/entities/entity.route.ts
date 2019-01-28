@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { blackListRoute } from './black-list';
+import { blackListRoute, blackListPopupRoute } from './black-list';
 
-const ENTITY_ROUTES = [ ...blackListRoute ];
+const ENTITY_ROUTES = [ ...blackListRoute, ...blackListPopupRoute ];
 export const entityRoute: Routes = [
     {
         path: '',
