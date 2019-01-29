@@ -200,4 +200,17 @@ export class BlackListComponent implements OnInit, OnDestroy {
             }
         );
     }
+
+    delBlack(id) {
+        const modalRef = this.modalService.open(BlackListDeleteSelectedComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.ids = id;
+        modalRef.result.then(
+            result => {
+                // Left blank intentionally, nothing to do here
+            },
+            reason => {
+                // Left blank intentionally, nothing to do here
+            }
+        );
+    }
 }

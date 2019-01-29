@@ -19,14 +19,14 @@ export class BlackListDeleteSelectedComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(login) {
+    confirmDeleteSelect(ids) {
 
-        // this.blacklistService.delete(login).subscribe(response => {
-        //     this.eventManager.broadcast({
-        //         name: 'userListModification',
-        //         content: 'Deleted a user'
-        //     });
-        //     this.activeModal.dismiss(true);
-        // });
+        this.blacklistService.delete(ids).subscribe(response => {
+            this.eventManager.broadcast({
+                name: 'userListModification',
+                content: 'Deleted a user'
+            });
+            this.activeModal.dismiss(true);
+        });
     }
 }

@@ -16,12 +16,12 @@ const LAYOUT_ROUTES = [navbarRoute, sidebarRoute, ...errorRoute];
                     loadChildren: './admin/admin.module#AvayaBloomAdminAdminModule',
                     data: {preload: true}
                 }
-                // ,
-                // {
-                //     path: 'phone',
-                //     loadChildren: './entities/entity.module#AvayaBloomAdminEntityModule',
-                //     data: {preload: true}
-                // }
+                ,
+                {
+                    path: 'phone',
+                    loadChildren: './entities/entity.module#AvayaBloomAdminEntityModule',
+                    data: {preload: true}
+                }
             ],
             { useHash: true, enableTracing: DEBUG_INFO_ENABLED, preloadingStrategy: JHIPreloadingStrategy }
         )

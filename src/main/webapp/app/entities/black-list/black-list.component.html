@@ -28,7 +28,7 @@
                     </span>
                 </button>
                 <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list"
-                [routerLink]="['/black-list/import']">
+                [routerLink]="['import']">
                     <fa-icon [icon]="'file-import'"></fa-icon>
                     <span jhiTranslate="avayaBloomAdminApp.blackList.home.import">
                         import
@@ -41,7 +41,7 @@
                     </span>
                 </button>
                 <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list"
-                    [routerLink]="['/black-list/new']">
+                    [routerLink]="['new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span jhiTranslate="avayaBloomAdminApp.blackList.home.createLabel">
                         Create new Black List
@@ -101,7 +101,7 @@
                             <label class="custom-control-label" [for]="'customCheck' + blackList.id">&nbsp;</label>
                         </div>
                     </td>
-                    <td><a [routerLink]="['/black-list', blackList.id, 'view' ]">{{blackList.id}}</a></td>
+                    <td><a [routerLink]="['./', blackList.id, 'view' ]">{{blackList.id}}</a></td>
                     <td>{{blackList.blacknumber}}</td>
                     <td jhiTranslate="{{'avayaBloomAdminApp.NumberSource.' + blackList.numberSource}}">{{blackList.numberSource}}</td>
                     <td>{{blackList.validityPeriod}}</td>
@@ -111,19 +111,24 @@
                     <td>{{blackList.changetime}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                            <button type="submit" [routerLink]="['/black-list', blackList.id, 'view' ]" class="btn btn-info btn-sm">
+                            <button type="submit" [routerLink]="['./', blackList.id, 'view' ]" class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'eye'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
-                            <button type="submit" [routerLink]="['/black-list', blackList.id, 'edit']" class="btn btn-primary btn-sm">
+                            <button type="submit" [routerLink]="['./', blackList.id, 'edit']" class="btn btn-primary btn-sm">
                                 <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
-                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'black-list/'+ blackList.id + '/delete'} }]"
-                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                            <button type="submit"  class="btn btn-danger btn-sm" (click)="delBlack(blackList.id)">
                                 <fa-icon [icon]="'times'"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                             </button>
+
+                            <!-- <button type="submit" [routerLink]="['/phone', { outlets: { popup: 'black-list/'+ blackList.id + '/delete'} }]"
+                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button> -->
                         </div>
                     </td>
                 </tr>
