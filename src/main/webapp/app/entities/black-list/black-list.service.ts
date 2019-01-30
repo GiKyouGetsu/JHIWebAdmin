@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IBlackList } from 'app/shared/model/black-list.model';
+import { FileUploader } from 'ng2-file-upload';
 
 type EntityResponseType = HttpResponse<IBlackList>;
 type EntityArrayResponseType = HttpResponse<IBlackList[]>;
@@ -32,7 +33,28 @@ export class BlackListService {
         return this.http.get<IBlackList[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    queryWithparams(req: any, no, applicant): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IBlackList[]>(`${this.resourceUrl}`+ '/filter' + '?' + 'blacknumber=' + no + '&' + 'applicant=' + applicant, 
+        {
+            params: options,
+            observe: 'response'
+        });
+    }
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
+    pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
+        const formdata: FormData = new FormData();
+     
+        formdata.append('file', file);
+     
+        const req = new HttpRequest('POST', `${this.resourceUrl}`+ '/upload', formdata, {
+          reportProgress: true,
+          responseType: 'text'
+        });
+     
+        return this.http.request(req);
+      }
 }

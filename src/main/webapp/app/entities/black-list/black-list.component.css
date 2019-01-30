@@ -20,3 +20,6 @@
     opacity: 0;
     cursor: default;
   }
+.width125 {
+  max-width: 125px!important;
+}

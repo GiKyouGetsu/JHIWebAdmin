@@ -79,6 +79,22 @@ export class BlackListComponent implements OnInit, OnDestroy {
             );
     }
 
+    loadwithParams(number, applicant) {
+        console.log(number, applicant);
+        // return;
+        this.blackListService
+        .queryWithparams({
+            page: this.page -1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        },number, applicant).subscribe((res: HttpResponse<IBlackList[]>) => {
+            this.paginateBlackLists(res.body, res.headers);
+            this.selectedAll = null;
+        },(err: HttpErrorResponse) => {
+            this.onError(err.message);
+        })
+    }
+
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;

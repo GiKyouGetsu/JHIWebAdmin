@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvayaBloomAdminSharedModule } from 'app/shared';
+import { FileUploadModule } from 'ng2-file-upload';
 import {
     BlackListComponent,
     BlackListDetailComponent,
@@ -12,6 +13,7 @@ import {
     BlackListDeleteSelectedComponent,
     blackListRoute,
     blackListPopupRoute
+    
 } from './';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
@@ -19,7 +21,7 @@ import { JhiLanguageHelper } from 'app/core';
 const ENTITY_STATES = [...blackListRoute, ...blackListPopupRoute];
 
 @NgModule({
-    imports: [AvayaBloomAdminSharedModule,FormsModule,ReactiveFormsModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [AvayaBloomAdminSharedModule,FormsModule,ReactiveFormsModule,FileUploadModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         BlackListComponent,
         BlackListDetailComponent,

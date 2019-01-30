@@ -1,26 +1,36 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="avayaBloomAdminApp.blackList.home.title">Black Lists</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list" (click)="delSelect()">
+            <fa-icon [icon]="'trash-alt'"></fa-icon>
+            <span jhiTranslate="avayaBloomAdminApp.blackList.home.delselect">
+                deleteSelected
+            </span>
+        </button>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list"
+        [routerLink]="['/black-list/import']">
+            <fa-icon [icon]="'file-import'"></fa-icon>
+            <span jhiTranslate="avayaBloomAdminApp.blackList.home.import">
+                import
+            </span>
+        </button>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list">
+            <fa-icon [icon]="'file-export'"></fa-icon>
+            <span jhiTranslate="avayaBloomAdminApp.blackList.home.export">
+            export
+            </span>
+        </button>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list"
+            [routerLink]="['/black-list/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span jhiTranslate="avayaBloomAdminApp.blackList.home.createLabel">
+                Create new Black List
+            </span>
+        </button>
     </h2>
     <h2 id="page-heading">
-        <div class="row">
-            <div class="col-md-7 col-sm-7 col-7">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" jhiTranslate="avayaBloomAdminApp.blackList.home.searchnumber">Number</span>
-                        <input type="text" aria-label="First name" class="form-control create-black-list">
-                    </div>
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" jhiTranslate="avayaBloomAdminApp.blackList.home.applicant">Applicant</span>
-                        <input type="text" aria-label="Last name" class="form-control create-black-list">
-                    </div>
-                    <button id="jh-create-entity" class="btn btn-primary">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                        <span jhiTranslate="avayaBloomAdminApp.blackList.home.searchLabel">Search</span>
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-5 col-sm-5 col-5">
+        <!-- <div class="row">
+            <div class="col-md-12 col-sm-12 col-12 float-md-right">
                 <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list" (click)="delSelect()">
                     <fa-icon [icon]="'trash-alt'"></fa-icon>
                     <span jhiTranslate="avayaBloomAdminApp.blackList.home.delselect">
@@ -47,6 +57,24 @@
                         Create new Black List
                     </span>
                 </button>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" jhiTranslate="avayaBloomAdminApp.blackList.home.searchnumber">Number</span>
+                        <input type="text" aria-label="First name" class="form-control create-black-list" #numberParms>
+                    </div>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" jhiTranslate="avayaBloomAdminApp.blackList.home.applicant">Applicant</span>
+                        <input type="text" aria-label="Last name" class="form-control create-black-list" #applicantParms>
+                    </div>
+                    <button id="jh-create-entity" class="btn btn-primary" (click)="loadwithParams(numberParms.value, applicantParms.value)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                        <span jhiTranslate="avayaBloomAdminApp.blackList.home.searchLabel">Search</span>
+                    </button>
+                </div>
             </div>
         </div>
     </h2>

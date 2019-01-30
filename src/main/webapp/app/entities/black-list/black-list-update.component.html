@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.applicant" for="field_applicant">Applicant</label>
                     <input type="text" class="form-control" name="applicant" id="field_applicant"
-                        [(ngModel)]="blackList.applicant" maxlength="20"/>
+                        [(ngModel)]="blackList.applicant" maxlength="20" disabled/>
                     <div [hidden]="!(editForm.controls.applicant?.dirty && editForm.controls.applicant?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.applicant?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
