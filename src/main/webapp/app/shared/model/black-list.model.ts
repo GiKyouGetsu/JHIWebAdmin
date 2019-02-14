@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export const enum NumberSource {
     MANUAL = 'MANUAL',
     BATCH = 'BATCH'
@@ -7,7 +9,7 @@ export interface IBlackList {
     id?: number;
     blacknumber?: string;
     numberSource?: NumberSource;
-    validityPeriod?: number;
+    validityPeriod?: any;
     addReason?: string;
     applicant?: string;
     createtime?: string;
@@ -25,7 +27,7 @@ export class BlackList implements IBlackList {
         public id?: number,
         public blacknumber?: string,
         public numberSource?: NumberSource,
-        public validityPeriod?: number,
+        public validityPeriod?: any,
         public addReason?: string,
         public applicant?: string,
         public createtime?: string,
