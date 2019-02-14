@@ -1,14 +1,6 @@
-enum NumberSource {
-	MANUAL, BATCH
-}
-entity BlackList {
+entity TestDemo {
 	id Long required,
-    blacknumber String required maxlength(20),
-    numberSource NumberSource,
-    validityPeriod Integer,
-    addReason String maxlength(20),
-    applicant String maxlength(20),
-    createtime String maxlength(50),
-    changetime String maxlength(50)
+	testtime1 LocalDate,
+	testtime2 Instant,
+	testtime3 ZonedDateTime
 }
-paginate BlackList with pagination
