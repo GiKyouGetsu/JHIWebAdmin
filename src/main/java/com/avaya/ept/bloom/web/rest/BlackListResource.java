@@ -2,6 +2,8 @@ package com.avaya.ept.bloom.web.rest;
 
 import com.avaya.ept.bloom.domain.BlackList;
 import com.avaya.ept.bloom.repository.BlackListRepository;
+import com.avaya.ept.bloom.service.BlackListService;
+import com.avaya.ept.bloom.service.impl.BlackListServiceImpl;
 import com.avaya.ept.bloom.service.storge.StorageService;
 import com.avaya.ept.bloom.web.rest.errors.BadRequestAlertException;
 import com.avaya.ept.bloom.web.rest.util.HeaderUtil;
@@ -40,6 +42,9 @@ public class BlackListResource {
 
     private final BlackListRepository blackListRepository;
 
+    @Autowired
+    private BlackListService blackListService;
+
     public BlackListResource(BlackListRepository blackListRepository) {
         this.blackListRepository = blackListRepository;
     }
@@ -60,7 +65,7 @@ public class BlackListResource {
         if (blackList.getId() != null) {
             throw new BadRequestAlertException("A new blackList cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        BlackList result = blackListRepository.save(blackList);
+        BlackList result = blackListService.createBlackList(blackList);
         return ResponseEntity.created(new URI("/api/black-lists/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -120,7 +125,7 @@ public class BlackListResource {
     /**
      * GET  /black-lists : get the "id" blackList.
      *
-     * @param blacknumber the blacknumber of the blackList to retrieve
+     * @param number the blacknumber of the blackList to retrieve
      * @param applicant the applicant of the blackList to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the blackList, or with status 404 (Not Found)
      */
@@ -137,10 +142,8 @@ public class BlackListResource {
 
 
     /**
-     * GET  /black-lists : get the "id" blackList.
-     *
-     * @param  the blacknumber of the blackList to retrieve
-     * @param  the applicant of the blackList to retrieve
+     * GET  /black-lists : get the "id" blackList
+     * @param  file of the blackList to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the blackList, or with status 404 (Not Found)
      */
     @PostMapping("/black-lists/upload")
