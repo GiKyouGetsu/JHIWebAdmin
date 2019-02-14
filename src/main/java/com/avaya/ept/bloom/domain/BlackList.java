@@ -36,7 +36,7 @@ public class BlackList implements Serializable {
     private NumberSource numberSource;
 
     @Column(name = "validity_period")
-    private Integer validityPeriod;
+    private String validityPeriod;
 
     @Size(max = 20)
     @Column(name = "add_reason", length = 20)
@@ -89,16 +89,16 @@ public class BlackList implements Serializable {
         this.numberSource = numberSource;
     }
 
-    public Integer getValidityPeriod() {
+    public String getValidityPeriod() {
         return validityPeriod;
     }
 
-    public BlackList validityPeriod(Integer validityPeriod) {
+    public BlackList validityPeriod(String validityPeriod) {
         this.validityPeriod = validityPeriod;
         return this;
     }
 
-    public void setValidityPeriod(Integer validityPeriod) {
+    public void setValidityPeriod(String validityPeriod) {
         this.validityPeriod = validityPeriod;
     }
 

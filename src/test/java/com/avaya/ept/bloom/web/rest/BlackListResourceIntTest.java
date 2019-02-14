@@ -47,8 +47,8 @@ public class BlackListResourceIntTest {
     private static final NumberSource DEFAULT_NUMBER_SOURCE = NumberSource.MANUAL;
     private static final NumberSource UPDATED_NUMBER_SOURCE = NumberSource.BATCH;
 
-    private static final Integer DEFAULT_VALIDITY_PERIOD = 1;
-    private static final Integer UPDATED_VALIDITY_PERIOD = 2;
+    private static final String DEFAULT_VALIDITY_PERIOD = "";
+    private static final String UPDATED_VALIDITY_PERIOD = "";
 
     private static final String DEFAULT_ADD_REASON = "AAAAAAAAAA";
     private static final String UPDATED_ADD_REASON = "BBBBBBBBBB";

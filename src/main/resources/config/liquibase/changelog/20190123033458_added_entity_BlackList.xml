@@ -29,7 +29,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="validity_period" type="integer">
+            <column name="validity_period" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

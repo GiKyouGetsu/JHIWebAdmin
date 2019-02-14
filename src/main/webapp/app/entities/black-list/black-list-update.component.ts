@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { Moment } from 'moment';
 import { IBlackList } from 'app/shared/model/black-list.model';
 import { BlackListService } from './black-list.service';
 import { AccountService } from 'app/core';
+import moment = require('moment');
 
 @Component({
     selector: 'bloom-black-list-update',
@@ -16,19 +18,23 @@ export class BlackListUpdateComponent implements OnInit {
     blackList: IBlackList;
     isSaving: boolean;
 
-    constructor(protected blackListService: BlackListService, protected activatedRoute: ActivatedRoute, protected accountService: AccountService,) {}
+    constructor(
+        protected blackListService: BlackListService,
+        protected activatedRoute: ActivatedRoute,
+        protected accountService: AccountService
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ blackList }) => {
-
             this.blackList = blackList;
+            this.blackList.validityPeriod = moment(this.blackList.validityPeriod);
             this.accountService.identity().then(account => {
                 this.currentAccount = this.copyAccount(account);
                 if (!!!blackList.id) {
                     this.blackList.applicant = this.currentAccount.login;
                 }
-            }); 
+            });
         });
     }
 
@@ -38,6 +44,8 @@ export class BlackListUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        const validityDuring = moment(this.blackList.validityPeriod).format('YYYY-MM-DD HH:mm:ss');
+        this.blackList.validityPeriod = validityDuring;
         if (this.blackList.id !== undefined) {
             this.subscribeToSaveResponse(this.blackListService.update(this.blackList));
         } else {
