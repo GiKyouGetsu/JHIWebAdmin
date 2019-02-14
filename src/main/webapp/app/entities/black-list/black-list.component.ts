@@ -11,6 +11,8 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { BlackListService } from './black-list.service';
 import { BlackListDeleteSelectedComponent } from './black-list-delete-selected.component';
+import moment = require('moment');
+import { create } from 'domain';
 
 @Component({
     selector: 'bloom-black-list',
@@ -83,16 +85,24 @@ export class BlackListComponent implements OnInit, OnDestroy {
         console.log(number, applicant);
         // return;
         this.blackListService
-        .queryWithparams({
-            page: this.page -1,
-            size: this.itemsPerPage,
-            sort: this.sort()
-        },number, applicant).subscribe((res: HttpResponse<IBlackList[]>) => {
-            this.paginateBlackLists(res.body, res.headers);
-            this.selectedAll = null;
-        },(err: HttpErrorResponse) => {
-            this.onError(err.message);
-        })
+            .queryWithparams(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                number,
+                applicant
+            )
+            .subscribe(
+                (res: HttpResponse<IBlackList[]>) => {
+                    this.paginateBlackLists(res.body, res.headers);
+                    this.selectedAll = null;
+                },
+                (err: HttpErrorResponse) => {
+                    this.onError(err.message);
+                }
+            );
     }
 
     loadPage(page: number) {
@@ -165,6 +175,16 @@ export class BlackListComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blackLists = data;
+        this.blackLists.forEach(el => {
+            el.remainPeriod = this.getRemainingPeriod(el.createtime, el.validityPeriod);
+        });
+    }
+
+    getRemainingPeriod(createtime, validityPeriod) {
+        const create = moment(new Date());
+        const validity = moment(new Date(validityPeriod));
+        let rtStr = create.from(validity);
+        return rtStr.substring(0, rtStr.length - 3);
     }
 
     protected onError(errorMessage: string) {
@@ -174,7 +194,7 @@ export class BlackListComponent implements OnInit, OnDestroy {
     protected ids(list: IBlackList[]) {
         let ids = '';
         list.forEach(el => {
-            ids = ids ?  (ids + ';' + el.id) : (ids + el.id);
+            ids = ids ? ids + ';' + el.id : ids + el.id;
         });
         return ids;
     }
@@ -188,10 +208,10 @@ export class BlackListComponent implements OnInit, OnDestroy {
     }
 
     checkIfAllSelected() {
-        let totalSelected =  0;
+        let totalSelected = 0;
         for (let i = 0; i < this.blackLists.length; i++) {
             if (this.blackLists[i].checked) {
-                totalSelected ++;
+                totalSelected++;
             }
         }
         this.selectedAll = totalSelected === this.blackLists.length;

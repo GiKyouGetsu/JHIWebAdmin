@@ -35,8 +35,7 @@ export class BlackListService {
 
     queryWithparams(req: any, no, applicant): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<IBlackList[]>(`${this.resourceUrl}`+ '/filter' + '?' + 'blacknumber=' + no + '&' + 'applicant=' + applicant, 
-        {
+        return this.http.get<IBlackList[]>(`${this.resourceUrl}` + '/filter' + '?' + 'blacknumber=' + no + '&' + 'applicant=' + applicant, {
             params: options,
             observe: 'response'
         });
@@ -45,16 +44,17 @@ export class BlackListService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
+    pushFileToStorage(file: File, user): Observable<any> {
         const formdata: FormData = new FormData();
-     
+
         formdata.append('file', file);
-     
-        const req = new HttpRequest('POST', `${this.resourceUrl}`+ '/upload', formdata, {
-          reportProgress: true,
-          responseType: 'text'
+        formdata.append('owner', user);
+
+        const req = new HttpRequest('POST', `${this.resourceUrl}` + '/upload', formdata, {
+            reportProgress: true,
+            responseType: 'text'
         });
-     
+
         return this.http.request(req);
-      }
+    }
 }

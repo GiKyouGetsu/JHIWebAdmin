@@ -105,6 +105,11 @@
                             Period</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
+
+                    <th jhiSortBy="remainPeriod"><span jhiTranslate="avayaBloomAdminApp.blackList.remainPeriod">Remaining Period</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
+
                     <th jhiSortBy="addReason"><span jhiTranslate="avayaBloomAdminApp.blackList.addReason">Add Reason</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
@@ -133,6 +138,7 @@
                     <td>{{blackList.blacknumber}}</td>
                     <td jhiTranslate="{{'avayaBloomAdminApp.NumberSource.' + blackList.numberSource}}">{{blackList.numberSource}}</td>
                     <td>{{blackList.validityPeriod}}</td>
+                    <td>{{blackList.remainPeriod}}</td>
                     <td>{{blackList.addReason}}</td>
                     <td>{{blackList.applicant}}</td>
                     <td>{{blackList.createtime}}</td>

@@ -5,7 +5,9 @@ import { FileUploader, FileItem } from 'ng2-file-upload';
 import { IBlackList } from 'app/shared/model/black-list.model';
 import { BlackListService } from './black-list.service';
 import { async } from 'q';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpEventType, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { AccountService } from 'app/core';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'bloom-black-list-import',
@@ -13,13 +15,13 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
     styleUrls: ['./black-list.component.css']
 })
 export class BlackListImportComponent implements OnInit {
-
     // public URL = 'api/black-lists';
     // protected uploader: FileUploader;
     // public hasBaseDropZoneOver:boolean = false;
     // public hasAnotherDropZoneOver:boolean = false;
     // response:string;
     progress: { percentage: number } = { percentage: 0 };
+    currentUser: string;
 
     blackList: IBlackList;
     fileToUpload: File = null;
@@ -28,7 +30,8 @@ export class BlackListImportComponent implements OnInit {
 
     constructor(
         protected blackListService: BlackListService,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {
         // this.uploader = new FileUploader({
         //     url: `${this.URL}`  + '/upload',
@@ -41,7 +44,7 @@ export class BlackListImportComponent implements OnInit {
         //                 length: item._file.size,
         //                 contentType: item._file.type,
         //                 date: new Date()
-        //             }) 
+        //             })
         //         })
         //     }
         // });
@@ -50,38 +53,67 @@ export class BlackListImportComponent implements OnInit {
 
         // this.response = '';
         // this.uploader.response.subscribe( res => this.response = res );
+        this.accountService.identity().then(account => {
+            this.currentUser = this.copyAccount(account).login;
+        });
     }
 
     onFileChange(files: FileList) {
         this.progress.percentage = 0;
         if (files.length > 0) {
-           this.labelImport.nativeElement.innerText = Array.from(files)
-          .map(f => f.name)
-          .join(', ');
+            this.labelImport.nativeElement.innerText = Array.from(files)
+                .map(f => f.name)
+                .join(', ');
+            this.fileToUpload = files.item(0);
         }
-
-        this.fileToUpload = files.item(0);
         console.log(this.fileToUpload);
     }
     isSelected() {
         return !!this.fileToUpload;
     }
     ngOnInit() {}
-    clear() {
-    }
+    clear() {}
 
     confirmImport() {
         this.progress.percentage = 0;
-        this.blackListService.pushFileToStorage(this.fileToUpload).subscribe(event => {
-            if (event.type === HttpEventType.UploadProgress) {
-                this.progress.percentage = Math.round(100 * event.loaded / event.total);
-              } else if (event instanceof HttpResponse) {
-                console.log('File is completely uploaded!');
-              }
-        })
+
+        this.subscribeToSaveResponse(this.blackListService.pushFileToStorage(this.fileToUpload, this.currentUser));
+        // this.blackListService.pushFileToStorage(this.fileToUpload, this.currentUser).subscribe()
+
+        // this.blackListService.pushFileToStorage(this.fileToUpload, this.currentUser).subscribe(event => {
+        // if (event.type === HttpEventType.UploadProgress) {
+        //     this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        //   } else if (event instanceof HttpResponse) {
+        //     console.log('File is completely uploaded!');
+        //   }
+
+        // })
+    }
+
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
+        result.subscribe((res: HttpResponse<IBlackList>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    onSaveSuccess() {
+        this.previousState();
+    }
+    onSaveError() {
+        // this.previousState();
     }
 
     previousState() {
         window.history.back();
+    }
+
+    copyAccount(account) {
+        return {
+            activated: account.activated,
+            email: account.email,
+            firstName: account.firstName,
+            langKey: account.langKey,
+            lastName: account.lastName,
+            login: account.login,
+            imageUrl: account.imageUrl
+        };
     }
 }

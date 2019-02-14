@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 /**
  * Spring Data  repository for the BlackList entity.
@@ -24,9 +26,10 @@ public interface BlackListRepository extends JpaRepository<BlackList, Long> {
 //        " black_list.blacknumber like ?1% and black_list.applicant like ?2%", nativeQuery = true)
 //    Page<BlackList> queryBlackList(String blacknumber, String applicant, Pageable pageable);
 
-        @Query(value = "select *" +
-        " from black_list" +
-        " where" +
-        " blacknumber like %?1% and applicant like %?2%", nativeQuery = true)
+    @Query(value = "select *" +
+    " from black_list" +
+    " where" +
+    " blacknumber like %?1% and applicant like %?2%", nativeQuery = true)
     Page<BlackList> queryBlackList(String blacknumber, String applicant, Pageable pageable);
+    List<BlackList> findByBlacknumber(String blackList);
 }

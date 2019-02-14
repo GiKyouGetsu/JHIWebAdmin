@@ -3,14 +3,15 @@ package com.avaya.ept.bloom.web.rest;
 import com.avaya.ept.bloom.domain.BlackList;
 import com.avaya.ept.bloom.repository.BlackListRepository;
 import com.avaya.ept.bloom.service.BlackListService;
-import com.avaya.ept.bloom.service.impl.BlackListServiceImpl;
 import com.avaya.ept.bloom.service.storge.StorageService;
 import com.avaya.ept.bloom.web.rest.errors.BadRequestAlertException;
+import com.avaya.ept.bloom.web.rest.util.CommonUtils;
 import com.avaya.ept.bloom.web.rest.util.HeaderUtil;
 import com.avaya.ept.bloom.web.rest.util.PaginationUtil;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import liquibase.util.csv.CSVReader;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -87,7 +89,7 @@ public class BlackListResource {
         if (blackList.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        BlackList result = blackListRepository.save(blackList);
+        BlackList result = blackListService.updateBlackList(blackList);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, blackList.getId().toString()))
             .body(result);
@@ -148,34 +150,26 @@ public class BlackListResource {
      */
     @PostMapping("/black-lists/upload")
     @Timed
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("owner") String owner) {
         log.info("upload file");
-        if (file != null && file.getOriginalFilename().endsWith(".csv")) {
-            File convFile = new File("C:\\var\\ftp\\" + file.getOriginalFilename());
-//            Integer lobId = Integer.valueOf(convFile.getName().replace(".csv", ""));
-            FileOutputStream fos = null;
-            try {
-                convFile.createNewFile();
-                fos = new FileOutputStream(convFile);
-                fos.write(file.getBytes());
-                List<String[]> list = readCsvFile(convFile);
-                list.forEach(str -> {
-                    log.info(str[0]);
-                });
-                log.info("size is "+ list.size());
-                convFile.delete();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        log.info("upload onwer: " + owner);
+
+        Map<String, String> result = blackListService.uploadBlackList(CommonUtils.getList(file), owner);
+        String returnParam = "";
+        if (StringUtils.isNotEmpty(result.get("EXCEED_LINE"))) {
+            returnParam = "EXCEED_LINE";
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityExceedLineAlert(ENTITY_NAME, returnParam)).body("success");
+        } else {
+            if (StringUtils.isNotEmpty(result.get("FAILED_LINE"))) {
+                returnParam = result.get("FAILED_LINE");
+                return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUploadAlert(ENTITY_NAME, returnParam)).body("success");
+            } else {
+                return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntitySucceedLineAlert(ENTITY_NAME, returnParam)).body("success");
             }
         }
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, "name")).body("success");
     }
 
     /**
@@ -191,23 +185,5 @@ public class BlackListResource {
 
         blackListRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-
-    public List<String[]> readCsvFile(File csvFile) throws IOException {
-        List<String[]> list = new ArrayList();
-        FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
-        try {
-            fileReader = new FileReader(csvFile);
-            bufferedReader = new BufferedReader(fileReader);
-            CSVReader csvReader = new CSVReader(bufferedReader);
-            list = csvReader.readAll();
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            bufferedReader.close();
-        }
-        return list;
     }
 }

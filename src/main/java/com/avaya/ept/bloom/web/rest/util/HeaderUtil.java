@@ -42,4 +42,15 @@ public final class HeaderUtil {
         headers.add("X-" + APPLICATION_NAME + "-params", entityName);
         return headers;
     }
+
+    public static HttpHeaders createEntityUploadAlert(String entityName, String param) {
+        return createAlert(APPLICATION_NAME + "." + entityName + ".upload", param);
+    }
+
+    public static HttpHeaders createEntityExceedLineAlert(String entityName, String param) {
+        return createAlert(APPLICATION_NAME + "." + entityName + ".exceed", param);
+    }
+    public static HttpHeaders createEntitySucceedLineAlert(String entityName, String param) {
+        return createAlert(APPLICATION_NAME + "." + entityName + ".succeed", param);
+    }
 }

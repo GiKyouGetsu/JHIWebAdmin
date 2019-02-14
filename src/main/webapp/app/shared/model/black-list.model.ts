@@ -15,6 +15,7 @@ export interface IBlackList {
     createtime?: string;
     changetime?: string;
     checked?: boolean;
+    remainPeriod?: string;
 }
 export interface ISelectBlackList {
     id: number;
