@@ -14,7 +14,7 @@
                 import
             </span>
         </button>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-black-list" (click)="exportData()">
             <fa-icon [icon]="'file-export'"></fa-icon>
             <span jhiTranslate="avayaBloomAdminApp.blackList.home.export">
             export
@@ -91,9 +91,9 @@
                             <label class="custom-control-label" for="customCheck">&nbsp;</label>
                         </div>
                     </th>
-                    <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                    <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id" hidden>ID</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
+                    </th> -->
                     <th jhiSortBy="blacknumber"><span jhiTranslate="avayaBloomAdminApp.blackList.blacknumber">Blacknumber</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
@@ -106,7 +106,7 @@
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
 
-                    <th jhiSortBy="remainPeriod"><span jhiTranslate="avayaBloomAdminApp.blackList.remainPeriod">Remaining Period</span>
+                    <th jhiSortBy="validityPeriod"><span jhiTranslate="avayaBloomAdminApp.blackList.remainPeriod">Remaining Period</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
 
@@ -119,9 +119,9 @@
                     <th jhiSortBy="createtime"><span jhiTranslate="avayaBloomAdminApp.blackList.createtime">Createtime</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="changetime"><span jhiTranslate="avayaBloomAdminApp.blackList.changetime">Changetime</span>
+                    <!-- <th jhiSortBy="changetime"><span jhiTranslate="avayaBloomAdminApp.blackList.changetime">Changetime</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
+                    </th> -->
                     <th></th>
                 </tr>
             </thead>
@@ -134,7 +134,7 @@
                             <label class="custom-control-label" [for]="'customCheck' + blackList.id">&nbsp;</label>
                         </div>
                     </td>
-                    <td><a [routerLink]="['/black-list', blackList.id, 'view' ]">{{blackList.id}}</a></td>
+                    <td hidden><a [routerLink]="['/black-list', blackList.id, 'view' ]">{{blackList.id}}</a></td>
                     <td>{{blackList.blacknumber}}</td>
                     <td jhiTranslate="{{'avayaBloomAdminApp.NumberSource.' + blackList.numberSource}}">{{blackList.numberSource}}</td>
                     <td>{{blackList.validityPeriod}}</td>
@@ -142,7 +142,7 @@
                     <td>{{blackList.addReason}}</td>
                     <td>{{blackList.applicant}}</td>
                     <td>{{blackList.createtime}}</td>
-                    <td>{{blackList.changetime}}</td>
+                    <td hidden>{{blackList.changetime}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit" [routerLink]="['/black-list', blackList.id, 'view' ]" class="btn btn-info btn-sm">

@@ -1,6 +1,6 @@
 import './vendor.ts';
 
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -17,9 +17,18 @@ import { AvayaBloomAdminAppRoutingModule } from './app-routing.module';
 import { AvayaBloomAdminHomeModule } from './home/home.module';
 import { AvayaBloomAdminAccountModule } from './account/account.module';
 import { AvayaBloomAdminEntityModule } from './entities/entity.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { BloomMainComponent, NavbarComponent, SidebarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import {
+    BloomMainComponent,
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    ErrorComponent
+} from './layouts';
 import { StoreModule } from '@ngrx/store';
 import { sidebarReducer } from './shared/redux/reducers/sidebar.reducer';
 
@@ -41,9 +50,19 @@ import { sidebarReducer } from './shared/redux/reducers/sidebar.reducer';
         AvayaBloomAdminAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         AvayaBloomAdminEntityModule,
+        NgxSpinnerModule,
         StoreModule.forRoot({ sidebar: sidebarReducer })
+        // NgxLoadingModule.forRoot({})
     ],
-    declarations: [BloomMainComponent, SidebarComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [
+        BloomMainComponent,
+        SidebarComponent,
+        NavbarComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        ActiveMenuDirective,
+        FooterComponent
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

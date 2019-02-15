@@ -77,6 +77,8 @@ public class BlackListServiceImpl implements BlackListService {
                 if (ckOnlyList.size() > 0) {
                     saveBlackList.setId(ckOnlyList.get(0).getId());
                 }
+
+                log.debug("Batch saved black number is: "  + saveBlackList.toString() );
                 this.blackListRepository.save(saveBlackList);
             }
         }

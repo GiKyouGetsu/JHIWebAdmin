@@ -44,17 +44,25 @@ export class BlackListService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    pushFileToStorage(file: File, user): Observable<any> {
+    pushFileToStorage(file: File, user): Observable<HttpEvent<any>> {
         const formdata: FormData = new FormData();
 
         formdata.append('file', file);
         formdata.append('owner', user);
 
         const req = new HttpRequest('POST', `${this.resourceUrl}` + '/upload', formdata, {
-            reportProgress: true,
+            reportProgress: false,
             responseType: 'text'
         });
-
+        // return this.http.post(`${this.resourceUrl}` + '/upload', formdata, {
+        //     observe: 'response',
+        //     responseType: "text"
+        // });
         return this.http.request(req);
+    }
+
+    queryALl(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IBlackList[]>(this.resourceUrl + '/all', { params: options, observe: 'response' });
     }
 }

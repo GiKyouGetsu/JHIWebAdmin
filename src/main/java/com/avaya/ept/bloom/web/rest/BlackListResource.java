@@ -110,6 +110,14 @@ public class BlackListResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/black-lists/all")
+    @Timed
+    public ResponseEntity<List<BlackList>> getAll(Pageable pageable) {
+        log.debug("REST request to get all BlackLists without pageable");
+        List<BlackList> results = blackListRepository.findAll();
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/black-lists");
+        return ResponseEntity.ok().body(results);
+    }
     /**
      * GET  /black-lists/:id : get the "id" blackList.
      *

@@ -12,7 +12,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { BlackListService } from './black-list.service';
 import { BlackListDeleteSelectedComponent } from './black-list-delete-selected.component';
 import moment = require('moment');
-import { create } from 'domain';
+import { Angular5Csv } from 'angular5-csv/dist/Angular5-csv';
 
 @Component({
     selector: 'bloom-black-list',
@@ -34,6 +34,33 @@ export class BlackListComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+
+    data: any = [
+        {
+            name: 'Test 1',
+            age: 13,
+            average: 8.2,
+            approved: true,
+            description: "using 'Content here, content here' "
+        },
+        {
+            name: 'Test 2',
+            age: 11,
+            average: 8.2,
+            approved: true,
+            description: "using 'Content here, content here' "
+        },
+        {
+            name: 'Test 4',
+            age: 10,
+            average: 8.2,
+            approved: true,
+            description: "using 'Content here, content here' "
+        }
+    ];
+
+    filename: any;
+    headers: any;
 
     // public selectedBlackLists: IBlackList[]
 
@@ -81,6 +108,38 @@ export class BlackListComponent implements OnInit, OnDestroy {
             );
     }
 
+    // loadAllWithNoPageable(){
+    //     this.blackListService.queryALl()
+    //     .subscribe(
+    //         (res: HttpResponse<IBlackList[]>) => {
+    //             this.data = res.body
+    //         },
+    //         (res: HttpErrorResponse) => {
+    //             this.onError(res.message);
+    //         }
+    //     )
+    // }
+    exportData() {
+        this.blackListService.queryALl().subscribe(
+            (res: HttpResponse<IBlackList[]>) => {
+                new Angular5Csv(res.body, 'blacklist-' + moment().format('YYYY-MM-DD HH:mm:ss'), {
+                    headers: [
+                        'ID',
+                        'ADD REASON',
+                        'APPLICATION',
+                        'BLACK NUMBER',
+                        'CHANGE TIME',
+                        'CREATE TIME',
+                        'NUMBER SOURCE',
+                        'VALIDITY PERIOD'
+                    ]
+                });
+            },
+            (res: HttpErrorResponse) => {
+                this.onError(res.message);
+            }
+        );
+    }
     loadwithParams(number, applicant) {
         console.log(number, applicant);
         // return;
@@ -176,15 +235,21 @@ export class BlackListComponent implements OnInit, OnDestroy {
         this.queryCount = this.totalItems;
         this.blackLists = data;
         this.blackLists.forEach(el => {
-            el.remainPeriod = this.getRemainingPeriod(el.createtime, el.validityPeriod);
+            el.remainPeriod = this.getRemainingPeriod(el.validityPeriod);
+            el.validityPeriod = this.formatVerPeriod(el.validityPeriod);
         });
     }
 
-    getRemainingPeriod(createtime, validityPeriod) {
-        const create = moment(new Date());
-        const validity = moment(new Date(validityPeriod));
-        let rtStr = create.from(validity);
-        return rtStr.substring(0, rtStr.length - 3);
+    getRemainingPeriod(str) {
+        let dateBegin = new Date(str.replace(/-/g, '/'));
+        let dateEnd = new Date();
+        var dateDiff = dateEnd.getTime() - dateBegin.getTime(); //ms
+        var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000)); //计算出相差天数
+
+        return Math.abs(dayDiff).toString();
+    }
+    formatVerPeriod(str) {
+        return str.substring(0, str.length - 9);
     }
 
     protected onError(errorMessage: string) {

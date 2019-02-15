@@ -5,19 +5,25 @@ import { JhiLanguageHelper } from 'app/core';
 import { Observable } from 'rxjs';
 import { SideBar, SideBarApp } from 'app/shared/redux/models/sidebar.model';
 import { Store, select } from '@ngrx/store';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { EventBusService } from 'app/shared';
 
 @Component({
     selector: 'bloom-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.css']
-
 })
 export class BloomMainComponent implements OnInit {
-
     toggle: Boolean = false;
     sidebar: Observable<SideBar>;
     authState: boolean;
-    constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router, private store: Store<SideBarApp>) {
+    constructor(
+        private spinner: NgxSpinnerService,
+        private jhiLanguageHelper: JhiLanguageHelper,
+        private router: Router,
+        private store: Store<SideBarApp>,
+        private eventBusService: EventBusService
+    ) {
         this.sidebar = this.store.pipe(select('sidebar'));
         this.sidebar.subscribe(sidebar => {
             this.toggle = sidebar.toggle;
@@ -37,6 +43,13 @@ export class BloomMainComponent implements OnInit {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.jhiLanguageHelper.updateTitle(this.getPageTitle(this.router.routerState.snapshot.root));
+            }
+        });
+        this.eventBusService.eventBus.subscribe(event => {
+            if (event === 'open') {
+                this.spinner.show();
+            } else {
+                this.spinner.hide();
             }
         });
     }

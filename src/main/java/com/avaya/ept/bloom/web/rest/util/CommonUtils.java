@@ -1,7 +1,10 @@
 package com.avaya.ept.bloom.web.rest.util;
 
+import com.avaya.ept.bloom.web.rest.AccountResource;
 import liquibase.util.csv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -12,6 +15,7 @@ import java.util.List;
 
 public class CommonUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(CommonUtils.class);
     private static SimpleDateFormat SAM_DF= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static String getCurrentDate() {
@@ -31,11 +35,13 @@ public class CommonUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            convFile.delete();
             try {
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                boolean resultDel = convFile.delete();
+                log.info("dleete result :" + String.valueOf(resultDel));
             }
         }
         return rtnList;
