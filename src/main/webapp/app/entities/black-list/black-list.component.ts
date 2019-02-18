@@ -35,43 +35,7 @@ export class BlackListComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    data: any = [
-        {
-            name: 'Test 1',
-            age: 13,
-            average: 8.2,
-            approved: true,
-            description: "using 'Content here, content here' "
-        },
-        {
-            name: 'Test 2',
-            age: 11,
-            average: 8.2,
-            approved: true,
-            description: "using 'Content here, content here' "
-        },
-        {
-            name: 'Test 4',
-            age: 10,
-            average: 8.2,
-            approved: true,
-            description: "using 'Content here, content here' "
-        }
-    ];
-
-    filename: any;
-    headers: any;
-
-    // public selectedBlackLists: IBlackList[]
-
-    // new added
-    // options: ISelectBlackList[] ;
     selectedAll: any;
-    // get selectedOptions() {
-    //     return this.options.filter(opt => opt.checked).map(
-    //         opt => opt.id
-    //     )
-    // }
 
     constructor(
         protected blackListService: BlackListService,
@@ -104,35 +68,24 @@ export class BlackListComponent implements OnInit, OnDestroy {
                     this.paginateBlackLists(res.body, res.headers);
                     this.selectedAll = null;
                 },
-                (res: HttpErrorResponse) => this.onError(res.message)
+                (res: HttpErrorResponse) => this.onError('error.serverError')
             );
     }
-
-    // loadAllWithNoPageable(){
-    //     this.blackListService.queryALl()
-    //     .subscribe(
-    //         (res: HttpResponse<IBlackList[]>) => {
-    //             this.data = res.body
-    //         },
-    //         (res: HttpErrorResponse) => {
-    //             this.onError(res.message);
-    //         }
-    //     )
-    // }
     exportData() {
         this.blackListService.queryALl().subscribe(
             (res: HttpResponse<IBlackList[]>) => {
-                new Angular5Csv(res.body, 'blacklist-' + moment().format('YYYY-MM-DD HH:mm:ss'), {
+                new Angular5Csv(res.body, '黑名单_' + moment().format('YYYYMMDDhhMMss'), {
                     headers: [
                         'ID',
+                        'BLACK NUMBER',
+                        'NUMBER SOURCE',
+                        'VALIDITY PERIOD',
                         'ADD REASON',
                         'APPLICATION',
-                        'BLACK NUMBER',
-                        'CHANGE TIME',
                         'CREATE TIME',
-                        'NUMBER SOURCE',
-                        'VALIDITY PERIOD'
-                    ]
+                        'CHANGE TIME'
+                    ],
+                    nullToEmptyString: true
                 });
             },
             (res: HttpErrorResponse) => {
@@ -241,10 +194,10 @@ export class BlackListComponent implements OnInit, OnDestroy {
     }
 
     getRemainingPeriod(str) {
-        let dateBegin = new Date(str.replace(/-/g, '/'));
-        let dateEnd = new Date();
-        var dateDiff = dateEnd.getTime() - dateBegin.getTime(); //ms
-        var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000)); //计算出相差天数
+        const dateBegin = new Date(str.replace(/-/g, '/'));
+        const dateEnd = new Date();
+        const dateDiff = dateEnd.getTime() - dateBegin.getTime(); // ms
+        const dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000)); // 计算出相差天数
 
         return Math.abs(dayDiff).toString();
     }
@@ -253,6 +206,7 @@ export class BlackListComponent implements OnInit, OnDestroy {
     }
 
     protected onError(errorMessage: string) {
+        // this.eventManager.broadcast("avayaBloomAdminApp.httpError");
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
@@ -263,7 +217,13 @@ export class BlackListComponent implements OnInit, OnDestroy {
         });
         return ids;
     }
-
+    protected numbers(list: IBlackList[]) {
+        let numbers = '';
+        list.forEach(el => {
+            numbers = numbers ? numbers + ';' + el.blacknumber : numbers + el.blacknumber;
+        });
+        return numbers;
+    }
     selectAll() {
         this.selectedAll = !this.selectedAll;
         console.log('selectAll()');
@@ -292,6 +252,7 @@ export class BlackListComponent implements OnInit, OnDestroy {
         console.log(selList);
         const modalRef = this.modalService.open(BlackListDeleteSelectedComponent, { size: 'lg', backdrop: 'static' });
         modalRef.componentInstance.ids = this.ids(selList);
+        modalRef.componentInstance.numbers = this.numbers(selList);
         modalRef.result.then(
             result => {
                 // Left blank intentionally, nothing to do here

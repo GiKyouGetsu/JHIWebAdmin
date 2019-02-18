@@ -6,6 +6,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IBlackList } from 'app/shared/model/black-list.model';
 import { FileUploader } from 'ng2-file-upload';
+import { formatDiagnosticsWithColorAndContext } from 'typescript';
 
 type EntityResponseType = HttpResponse<IBlackList>;
 type EntityArrayResponseType = HttpResponse<IBlackList[]>;
@@ -64,5 +65,15 @@ export class BlackListService {
     queryALl(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IBlackList[]>(this.resourceUrl + '/all', { params: options, observe: 'response' });
+    }
+
+    deleteSelect(ids: string, numbers: string): Observable<HttpEvent<any>> {
+        const formdata: FormData = new FormData();
+        formdata.append('ids', ids);
+        formdata.append('numbers', numbers);
+        const req = new HttpRequest('POST', `${this.resourceUrl}` + '/all', formdata, {
+            responseType: 'text'
+        });
+        return this.http.request(req);
     }
 }

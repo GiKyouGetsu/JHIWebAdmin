@@ -4,19 +4,6 @@
             <h2 id="bloom-black-list-heading" jhiTranslate="avayaBloomAdminApp.blackList.home.createOrEditLabel">Create or edit a Black List</h2>
             <div>
                 <bloom-alert-error></bloom-alert-error>
-                <!-- <div class="form-group" >
-                    <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.addmode" for="field_status1">添加模式</label>
-                    <div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="field_status1" name="customRadioInline1" class="custom-control-input" [value]=1 >
-                            <label class="custom-control-label" for="field_status1" [(ngModel)]="">手动</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="field_status2" name="customRadioInline1" class="custom-control-input" [value]=0 >
-                            <label class="custom-control-label" for="field_status2">批量</label>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="form-group" [hidden]="!blackList.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
@@ -25,7 +12,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.blacknumber" for="field_blacknumber">Blacknumber</label>
                     <input type="text" class="form-control" name="blacknumber" id="field_blacknumber"
-                        [(ngModel)]="blackList.blacknumber" required maxlength="20"/>
+                        [(ngModel)]="blackList.blacknumber" required maxlength="11" pattern="^\d{11}$"/>
                     <div [hidden]="!(editForm.controls.blacknumber?.dirty && editForm.controls.blacknumber?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.blacknumber?.errors?.required" jhiTranslate="entity.validation.required">
@@ -33,23 +20,15 @@
                         </small>
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.blacknumber?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 20 }">
-                        This field cannot be longer than 20 characters.
+                        This field cannot be longer than 11 characters.
                         </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.blacknumber?.errors?.pattern" jhiTranslate="avayaBloomAdminApp.blackList.validation.blacknumber" translateValues="{ max: 20 }">
+                        This field must be 11 digital number.
+                        </small>
+                        
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.numberSource" for="field_numberSource">Number Source</label>
-                    <select class="form-control" name="numberSource" [(ngModel)]="blackList.numberSource" id="field_numberSource" >
-                        <option value="MANUAL">{{'avayaBloomAdminApp.NumberSource.MANUAL' | translate}}</option>
-                        <option value="BATCH">{{'avayaBloomAdminApp.NumberSource.BATCH' | translate}}</option>
-                    </select>
-                </div> -->
-                <!-- <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.validityPeriod" for="field_validityPeriod">Validity Period</label>
-                    <input type="number" class="form-control" name="validityPeriod" id="field_validityPeriod"
-                        [(ngModel)]="blackList.validityPeriod" />
-                </div> -->
-
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.validityPeriod" for="field_validityPeriod">Validity Period</label>
                     <div class="input-group">
@@ -82,29 +61,6 @@
                         </small>
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.createtime" for="field_createtime">Createtime</label>
-                    <input type="text" class="form-control" name="createtime" id="field_createtime"
-                        [(ngModel)]="blackList.createtime" maxlength="50"/>
-                    <div [hidden]="!(editForm.controls.createtime?.dirty && editForm.controls.createtime?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.createtime?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
-                        </small>
-                    </div>
-                </div> -->
-                <!-- <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="avayaBloomAdminApp.blackList.changetime" for="field_changetime">Changetime</label>
-                    <input type="text" class="form-control" name="changetime" id="field_changetime"
-                        [(ngModel)]="blackList.changetime" maxlength="50"/>
-                    <div [hidden]="!(editForm.controls.changetime?.dirty && editForm.controls.changetime?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.changetime?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
-                        </small>
-                    </div>
-                </div> -->
-
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

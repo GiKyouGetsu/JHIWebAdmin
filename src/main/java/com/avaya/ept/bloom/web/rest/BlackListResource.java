@@ -6,12 +6,14 @@ import com.avaya.ept.bloom.service.BlackListService;
 import com.avaya.ept.bloom.service.storge.StorageService;
 import com.avaya.ept.bloom.web.rest.errors.BadRequestAlertException;
 import com.avaya.ept.bloom.web.rest.util.CommonUtils;
+import com.avaya.ept.bloom.web.rest.util.GlobalConst;
 import com.avaya.ept.bloom.web.rest.util.HeaderUtil;
 import com.avaya.ept.bloom.web.rest.util.PaginationUtil;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import liquibase.util.csv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.units.qual.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +23,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.security.action.GetLongAction;
 
 import javax.validation.Valid;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing BlackList.
@@ -69,7 +70,7 @@ public class BlackListResource {
         }
         BlackList result = blackListService.createBlackList(blackList);
         return ResponseEntity.created(new URI("/api/black-lists/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getBlacknumber()))
             .body(result);
     }
 
@@ -91,7 +92,7 @@ public class BlackListResource {
         }
         BlackList result = blackListService.updateBlackList(blackList);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, blackList.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, blackList.getBlacknumber()))
             .body(result);
     }
 
@@ -164,18 +165,18 @@ public class BlackListResource {
 
         Map<String, String> result = blackListService.uploadBlackList(CommonUtils.getList(file), owner);
         String returnParam = "";
-        if (StringUtils.isNotEmpty(result.get("EXCEED_LINE"))) {
-            returnParam = "EXCEED_LINE";
+        if (StringUtils.isNotEmpty(result.get(GlobalConst.EXCEED))) {
+            returnParam = GlobalConst.EXCEED;
             return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityExceedLineAlert(ENTITY_NAME, returnParam)).body("success");
+                .headers(HeaderUtil.createEntityExceedLineAlert(ENTITY_NAME, returnParam)).build();
         } else {
-            if (StringUtils.isNotEmpty(result.get("FAILED_LINE"))) {
-                returnParam = result.get("FAILED_LINE");
+            if (StringUtils.isNotEmpty(result.get(GlobalConst.FAILED_ROW))) {
+                returnParam = result.get(GlobalConst.FAILED_ROW);
                 return ResponseEntity.ok()
-                    .headers(HeaderUtil.createEntityUploadAlert(ENTITY_NAME, returnParam)).body("success");
+                    .headers(HeaderUtil.createEntityUploadAlert(ENTITY_NAME, returnParam)).build();
             } else {
                 return ResponseEntity.ok()
-                    .headers(HeaderUtil.createEntitySucceedLineAlert(ENTITY_NAME, returnParam)).body("success");
+                    .headers(HeaderUtil.createEntitySucceedLineAlert(ENTITY_NAME, returnParam)).build();
             }
         }
     }
@@ -193,5 +194,13 @@ public class BlackListResource {
 
         blackListRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/black-lists/all")
+    @Timed
+    public ResponseEntity<Void> deleteSelected(@RequestParam("numbers") String numbers, @RequestParam("ids") String ids) {
+        String idArray[] = ids.split(";");
+        Arrays.stream(idArray).forEach(ele -> blackListRepository.deleteById(Long.valueOf(ele)));
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, numbers)).build();
     }
 }

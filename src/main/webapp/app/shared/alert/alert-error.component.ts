@@ -12,7 +12,8 @@ import { Subscription } from 'rxjs';
                     <pre [innerHTML]="alert.msg"></pre>
                 </ngb-alert>
             </div>
-        </div>`
+        </div>
+    `
 })
 export class BloomAlertErrorComponent implements OnDestroy {
     alerts: any[];
@@ -73,7 +74,9 @@ export class BloomAlertErrorComponent implements OnDestroy {
                 case 404:
                     this.addErrorAlert('Not found', 'error.url.not.found');
                     break;
-
+                case 504:
+                    this.addErrorAlert('Server error', 'error.serverError');
+                    break;
                 default:
                     if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
                         this.addErrorAlert(httpErrorResponse.error.message);

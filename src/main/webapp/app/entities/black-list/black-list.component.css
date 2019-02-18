@@ -30,3 +30,6 @@ input[type='file'] {
     height: 100%;
     z-index: 99999 !important;
 }
+.trans-p {
+    word-break: break-word;
+}

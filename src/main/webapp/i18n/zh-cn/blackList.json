@@ -17,13 +17,13 @@
             "created": "黑名单 {{ param }} 创建成功",
             "updated": "黑名单 {{ param }} 更新成功",
             "deleted": "黑名单 {{ param }} 删除成功",
-            "upload": "以下黑名单更新失败 {{ param }",
-            "exceed": "文件超出范围 {{ param }}",
+            "upload": "以下行数更新失败 {{ param }}",
+            "exceed": "文件行数超出范围 {{ param }}",
             "succeed": "全部上传成功",
             "noselected": "没有选中的黑名单号码！",
             "delete": {
                 "question": "你确定要删除 黑名单 {{ id }} 吗？",
-                "questions": "你确定要删除 这些黑名单 {{ ids }} 吗？"
+                "questions": "你确定要删除 这些黑名单 {{ numbers }} 吗？"
             },
             "detail": {
                 "title": "黑名单"
@@ -36,7 +36,10 @@
             "applicant": "申请人",
             "createtime": "创建时间",
             "changetime": "修改时间",
-            "addmode": "添加模式"
+            "addmode": "添加模式",
+            "validation": {
+                "blacknumber": "号码必须为11位数字"
+            }
         }
     }
 }

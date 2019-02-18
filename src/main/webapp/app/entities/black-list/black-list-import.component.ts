@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, EventEmitter } from '@angular/core';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 
 import { IBlackList } from 'app/shared/model/black-list.model';
@@ -40,28 +40,9 @@ export class BlackListImportComponent implements OnInit {
         protected router: Router,
         protected accountService: AccountService,
         protected spinner: NgxSpinnerService,
-        protected eventBusService: EventBusService
+        protected eventBusService: EventBusService,
+        protected alertService: JhiAlertService
     ) {
-        // this.uploader = new FileUploader({
-        //     url: `${this.URL}`  + '/upload',
-        //     disableMultipart: true,
-        //     formatDataFunctionIsAsync: true,
-        //     formatDataFunction: async (item) => {
-        //         return new Promise( (resolve, reject) => {
-        //             resolve({
-        //                 name: item._file.name,
-        //                 length: item._file.size,
-        //                 contentType: item._file.type,
-        //                 date: new Date()
-        //             })
-        //         })
-        //     }
-        // });
-        // this.hasBaseDropZoneOver = false;
-        // this.hasAnotherDropZoneOver = false;
-
-        // this.response = '';
-        // this.uploader.response.subscribe( res => this.response = res );
         this.accountService.identity().then(account => {
             this.currentUser = this.copyAccount(account).login;
         });
@@ -85,16 +66,6 @@ export class BlackListImportComponent implements OnInit {
     confirmImport() {
         this.eventBusService.sendCommand('open');
         this.subscribeToSaveResponse(this.blackListService.pushFileToStorage(this.fileToUpload, this.currentUser));
-        // this.blackListService.pushFileToStorage(this.fileToUpload, this.currentUser).subscribe()
-
-        // this.blackListService.pushFileToStorage(this.fileToUpload, this.currentUser).subscribe(event => {
-        // if (event.type === HttpEventType.UploadProgress) {
-        //     this.progress.percentage = Math.round(100 * event.loaded / event.total);
-        //   } else if (event instanceof HttpResponse) {
-        //     console.log('File is completely uploaded!');
-        //   }
-
-        // })
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpEvent<any>>) {
@@ -104,8 +75,6 @@ export class BlackListImportComponent implements OnInit {
     onSaveSuccess(res) {
         if (res && res.status === 200) {
             this.eventBusService.sendCommand('close');
-            // this.eventBusService.eventBus.next("open");
-            // this.maskEventer.emit('open');
             console.log('save success');
             this.previousState();
         } else {
@@ -114,12 +83,16 @@ export class BlackListImportComponent implements OnInit {
     onSaveError(res) {
         this.eventBusService.sendCommand('close');
         console.log('save failed');
-        // this.previousState();
+        this.previousState();
+        this.onError('error.serverError');
     }
 
+    protected onError(errorMessage: string) {
+        this.alertService.error(errorMessage, null, null);
+    }
     previousState() {
-        this.router.navigateByUrl('/black-list');
-        // window.history.back();
+        // this.router.navigateByUrl('/black-list');
+        window.history.back();
     }
 
     copyAccount(account) {

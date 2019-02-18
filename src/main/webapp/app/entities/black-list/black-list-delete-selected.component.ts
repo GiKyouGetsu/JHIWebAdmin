@@ -11,7 +11,8 @@ import { IBlackList } from 'app/shared/model/black-list.model';
 })
 export class BlackListDeleteSelectedComponent {
     blackList: IBlackList[];
-    ids;
+    ids: any;
+    numbers: any;
 
     constructor(private blacklistService: BlackListService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
@@ -19,14 +20,18 @@ export class BlackListDeleteSelectedComponent {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete(login) {
-
-        // this.blacklistService.delete(login).subscribe(response => {
-        //     this.eventManager.broadcast({
-        //         name: 'userListModification',
-        //         content: 'Deleted a user'
-        //     });
-        //     this.activeModal.dismiss(true);
-        // });
+    confirmDeleteSelectForm() {
+        this.blacklistService.deleteSelect(this.ids, this.numbers).subscribe(
+            res => {
+                this.eventManager.broadcast({
+                    name: 'blackListListModification',
+                    content: 'Deleted some user'
+                });
+                this.activeModal.dismiss(true);
+            },
+            err => {
+                this.activeModal.dismiss(true);
+            }
+        );
     }
 }
